@@ -16,6 +16,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(external/glfw)
+add_subdirectory(external/glad)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -58,7 +59,8 @@ Qt6::Core
 Qt6::Gui
 Qt6::OpenGL ${OPENGL_LIBRARIES}
 Qt6::OpenGLWidgets
-glfw)
+glfw
+glad)
 
 set_target_properties(BattleTurtle PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
