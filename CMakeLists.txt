@@ -11,6 +11,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(external/glfw)
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Gui)
@@ -51,7 +57,8 @@ target_link_libraries(BattleTurtle PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
 Qt6::Core
 Qt6::Gui
 Qt6::OpenGL ${OPENGL_LIBRARIES}
-Qt6::OpenGLWidgets)
+Qt6::OpenGLWidgets
+glfw)
 
 set_target_properties(BattleTurtle PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
