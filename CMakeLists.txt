@@ -11,25 +11,25 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-
-add_subdirectory(external/glfw)
-add_subdirectory(external/glad)
-
+find_package(OpenGL REQUIRED)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt6 REQUIRED COMPONENTS Gui)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS OpenGL)
-find_package(Qt6 REQUIRED COMPONENTS OpenGLWidgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGL)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS OpenGLWidgets)
+
+
 
 set(PROJECT_SOURCES
         main.cpp
-        openglwindow.cpp
-        openglwindow.h
+        glview.cpp
+        glview.h
+	glview.ui
 )
+
+include_directories(${OpenGL_INCLUDE_DIRS})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(BattleTurtle
@@ -54,13 +54,16 @@ else()
     endif()
 endif()
 
-target_link_libraries(BattleTurtle PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
-Qt6::Core
-Qt6::Gui
-Qt6::OpenGL ${OPENGL_LIBRARIES}
-Qt6::OpenGLWidgets
-glfw
-glad)
+target_link_libraries(BattleTurtle PRIVATE Qt${QT_VERSION_MAJOR}::Core
+Qt${QT_VERSION_MAJOR}::Gui
+Qt${QT_VERSION_MAJOR}::Test
+Qt${QT_VERSION_MAJOR}::OpenGL
+Qt${QT_VERSION_MAJOR}::OpenGLWidgets
+Qt${QT_VERSION_MAJOR}::Widgets
+opengl32
+GLU32)
+
+
 
 set_target_properties(BattleTurtle PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

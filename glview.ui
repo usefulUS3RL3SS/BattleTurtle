@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Window</class>
- <widget class="QMainWindow" name="Window">
+ <class>glView</class>
+ <widget class="QWidget" name="glView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,11 +11,8 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Window</string>
+   <string>glView</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
